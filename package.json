@@ -6,7 +6,8 @@
   "author": "keik <keik@c-fo.com>",
   "license": "MIT",
   "scripts": {
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "test": "jest"
   },
   "dependencies": {
     "react": "^16.13.1",
@@ -14,8 +15,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@storybook/addon-storyshots": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "babel-loader": "^8.1.0",
+    "babel-plugin-require-context-hook": "^1.0.0",
+    "jest": "^25.5.1",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1"
   }
