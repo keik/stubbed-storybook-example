@@ -1,0 +1,22 @@
+{
+  "name": "stubbed-storybook-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/keik/stubbed-storybook-example",
+  "author": "keik <keik@c-fo.com>",
+  "license": "MIT",
+  "scripts": {
+    "storybook": "start-storybook"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@storybook/react": "^5.3.18",
+    "babel-loader": "^8.1.0",
+    "prettier": "^2.0.5",
+    "react-test-renderer": "^16.13.1"
+  }
+}
