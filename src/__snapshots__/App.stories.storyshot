@@ -2,8 +2,15 @@
 
 exports[`Storyshots App default 1`] = `
 <div>
-  <div>
-    child
+  <div
+    style={
+      Object {
+        "border": "2px solid red",
+        "padding": "1rem",
+      }
+    }
+  >
+    Stubbed container component
   </div>
 </div>
 `;

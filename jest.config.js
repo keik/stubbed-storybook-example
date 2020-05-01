@@ -1,6 +1,3 @@
 module.exports = {
-  testEnvironment: "node",
-  transform: {
-    "^.+\\.js$": "babel-jest",
-  },
+  projects: ["src", ".storybook"],
 };
