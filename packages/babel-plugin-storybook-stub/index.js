@@ -2,7 +2,7 @@ const cpath = require("path");
 
 const packageName = require("./package.json").name;
 
-module.exports = function ({ types }) {
+module.exports = function ({ parse }) {
   return {
     visitor: {
       ImportSpecifier: (path, state) => {
@@ -10,26 +10,19 @@ module.exports = function ({ types }) {
           state.opts.importedNameToStub
         );
         if (importedNameToStubRegex.test(path.node.imported.name)) {
-          const specifier = types.importDefaultSpecifier(
-            types.identifier(path.node.imported.name)
-          );
-          console.log(state.filename, state.file.opts.root);
-          const d = types.importDeclaration(
-            [specifier],
-            types.stringLiteral(
-              state.opts.stubWith
-                ? state.opts.stubWith.replace(
-                    "<rootDir>",
-                    cpath.relative(
-                      cpath.dirname(state.filename),
-                      state.file.opts.root
-                    )
-                  )
-                : `${packageName}/Stub`
-            )
-          );
-
-          // TODO: refactor? require('@babel/parser').parse('import Hoge from "./a";', { sourceType: 'module'})
+          const importName = path.node.imported.name;
+          const importPath = state.opts.stubWith
+            ? state.opts.stubWith.replace(
+                "<rootDir>",
+                cpath.relative(
+                  cpath.dirname(state.filename),
+                  state.file.opts.root
+                )
+              )
+            : `${packageName}/Stub`;
+          const d = parse(`import ${importName} from "${importPath}";`, {
+            sourceType: "module",
+          }).program.body[0];
           path.parentPath.replaceWith(d);
         }
       },
