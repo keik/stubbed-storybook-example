@@ -1,21 +1,32 @@
-const t = require("babel-types");
+const cpath = require("path");
 
-module.exports = function () {
+const packageName = require("./package.json").name;
+
+module.exports = function ({ types }) {
   return {
     visitor: {
-      ImportSpecifier: (path) => {
-        console.log(path.node.imported.name);
-        // TODO: configurable
-        if (/\w+Container$/.test(path.node.imported.name)) {
-          console.log("replace");
-          console.log(path.parentPath);
-          const specifier = t.importDefaultSpecifier(
-            t.identifier(path.node.imported.name)
+      ImportSpecifier: (path, state) => {
+        const importedNameToStubRegex = new RegExp(
+          state.opts.importedNameToStub
+        );
+        if (importedNameToStubRegex.test(path.node.imported.name)) {
+          const specifier = types.importDefaultSpecifier(
+            types.identifier(path.node.imported.name)
           );
-          // TODO: configurable
-          const d = t.importDeclaration(
+          console.log(state.filename, state.file.opts.root);
+          const d = types.importDeclaration(
             [specifier],
-            t.stringLiteral("babel-plugin-storybook-stub/Stub")
+            types.stringLiteral(
+              state.opts.stubWith
+                ? state.opts.stubWith.replace(
+                    "<rootDir>",
+                    cpath.relative(
+                      cpath.dirname(state.filename),
+                      state.file.opts.root
+                    )
+                  )
+                : `${packageName}/Stub`
+            )
           );
 
           // TODO: refactor? require('@babel/parser').parse('import Hoge from "./a";', { sourceType: 'module'})

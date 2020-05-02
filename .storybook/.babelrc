@@ -1,4 +1,12 @@
 {
   "extends": "../babel.config.js",
-  "plugins": ["babel-plugin-storybook-stub"]
+  "plugins": [
+    [
+      "babel-plugin-storybook-stub",
+      {
+        "importedNameToStub": "\\w+Container$",
+        "stubWith": "<rootDir>/.storybook/Stub"
+      }
+    ]
+  ]
 }
