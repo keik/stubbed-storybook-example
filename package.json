@@ -23,7 +23,6 @@
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook",
-    "eslint": "eslint .",
     "storybook": "start-storybook",
     "test": "jest"
   },
