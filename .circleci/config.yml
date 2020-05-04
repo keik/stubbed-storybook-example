@@ -1,0 +1,34 @@
+version: 2.1
+
+jobs:
+  test:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-yarn-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-yarn-cache-{{ .Branch }}-
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-yarn-cache-
+      - run:
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Test
+          command: yarn test
+      - run:
+          name: Build storybook
+          command: yarn build-storybook
+      - store_artifacts:
+          path: storybook-static
+      - save-yarn-cache
+  save-yarn-cache:
+    steps:
+      - save_cache:
+          key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-yarn-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn/cache
+
+workflows:
+  build:
+    jobs:
+      - test
