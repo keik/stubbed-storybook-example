@@ -23,13 +23,11 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-macros": "^2.8.0",
     "babel-plugin-require-context-hook": "^1.0.0",
+    "babel-plugin-stub-import": "^0.0.0",
     "babel-types": "^6.26.0",
     "jest": "^25.5.1",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1"
   },
-  "workspaces": [
-    "./packages/*"
-  ],
   "private": true
 }

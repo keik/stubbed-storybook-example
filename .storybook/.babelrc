@@ -2,10 +2,13 @@
   "extends": "../babel.config.js",
   "plugins": [
     [
-      "babel-plugin-storybook-stub",
+      "babel-plugin-stub-import",
       {
-        "importedNameToStub": "\\w+Container$",
-        "stubWith": "<rootDir>/.storybook/Stub"
+        "test": {
+          "importName": "\\w+Container$",
+          "importPath": "\\/components\\/"
+        },
+        "stubTo": "<rootDir>/.storybook/Stub"
       }
     ]
   ]

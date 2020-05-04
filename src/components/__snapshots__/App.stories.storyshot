@@ -10,7 +10,7 @@ exports[`Storyshots App default 1`] = `
       }
     }
   >
-    Stubbed container component
+    Stubbed!
   </div>
 </div>
 `;
